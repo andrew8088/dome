@@ -22,6 +22,18 @@ window.dome = (function () {
         return m.length > 1 ? m : m[0];
     };
 
+    // ========== DOM MANIPULATION ==========
+    Dome.prototype.text = function (text) {
+        if (typeof text !== "undefined") {
+            return this.forEach(function (el) {
+                el.innerText = text;
+            });
+        } else {
+            return this.mapOne(function (el) {
+                return el.innerText;
+            });
+        }
+    };
     var dome = {
         get: function (selector) {
             var els;

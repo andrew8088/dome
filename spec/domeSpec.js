@@ -39,3 +39,19 @@ describe("dome", function () {
             expect(a.join('')).toEqual('twotwotwo');
         });
     });
+    describe("text", function () {
+        beforeEach(function () {
+            this.d = dome.get("#one");
+        });
+        it("can set the text of an element", function () {
+            this.d.text("one");
+            expect(this.d[0].innerText).toEqual("one");
+        });
+        it("can get the text of an element", function () {
+            this.d.text("one");
+            expect(this.d.text()).toEqual("one");
+        });
+        afterEach(function () {
+            this.d.text("");
+        });
+    });
