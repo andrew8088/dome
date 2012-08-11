@@ -5,6 +5,22 @@ window.dome = (function () {
         }
         this.length = els.length;
     }
+    // ========= UTILS =========
+    Dome.prototype.forEach = function (callback) {
+        this.map(callback);
+        return this; 
+    };
+    Dome.prototype.map = function (callback) {
+        var results = [];
+        for (var i = 0; i < this.length; i++) {
+            results.push(callback.call(this, this[i], i));
+        }
+        return results; //.length > 1 ? results : results[0];
+    };
+    Dome.prototype.mapOne = function (callback) {
+        var m = this.map(callback);
+        return m.length > 1 ? m : m[0];
+    };
 
     var dome = {
         get: function (selector) {

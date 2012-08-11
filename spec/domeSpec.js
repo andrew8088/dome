@@ -20,3 +20,22 @@ describe("dome", function () {
             expect(dome.get(two)[0]).toBe(two[0]);
         });
     });
+
+    describe("utils", function () {
+        it("can loop over each element", function () {
+            var o =  {
+                loop: function (el) { }
+            };
+            spyOn(o, 'loop');
+            dome.get("b").forEach(o.loop);
+
+            expect(o.loop).toHaveBeenCalled();
+        });
+
+        it("can map over each element", function () {
+            var a = dome.get("b").map(function (el) {
+                return el.className;
+            });
+            expect(a.join('')).toEqual('twotwotwo');
+        });
+    });
