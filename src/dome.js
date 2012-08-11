@@ -46,6 +46,20 @@ window.dome = (function () {
             });
         }
     };
+
+    Dome.prototype.addClass = function (classes) {
+        var className = "";
+        if (typeof classes !== 'string') {
+            for (var i = 0; i < classes.length; i++) {
+               className += " " + classes[i];
+            }
+        } else {
+            className = " " + classes;
+        }
+        return this.forEach(function (el) {
+            el.className += className;
+        });
+    };
     var dome = {
         get: function (selector) {
             var els;

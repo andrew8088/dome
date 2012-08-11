@@ -71,3 +71,22 @@ describe("dome", function () {
             expect(this.d.html()[0].toLowerCase()).toEqual("<strong>test!</strong>");
         });
     });
+    describe("addClass", function () {
+        beforeEach(function () {
+            this.d = dome.get(".two");
+        });
+        afterEach(function () {
+            this.d.forEach(function (el) {
+                el.className = "two";
+            });
+        });
+        it("can add a single class to elements", function () {
+            this.d.addClass('single');
+            expect(this.d[0].className.indexOf('single')).toBeGreaterThan(-1);
+        });
+        it("can add multiple classes (via array) to elements", function () {
+            this.d.addClass(["multiple", "classes"]);
+            var cn = this.d[0].className;
+            expect(cn.indexOf("multiple")).toBeLessThan(cn.indexOf("classes"));
+        });
+    });
