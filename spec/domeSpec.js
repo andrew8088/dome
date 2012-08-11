@@ -215,3 +215,13 @@ describe("dome", function () {
         });
         
     });
+
+    describe("remove", function () {
+        it("removes an element from the DOM", function () {
+            var o = dome.get("#one"),
+                p = dome.create("p", {text: "p" });
+            o.append(p);
+            p.remove()
+            expect(o[0].children.length).toBe(0);
+        });
+    });

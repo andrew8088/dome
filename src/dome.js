@@ -110,6 +110,13 @@ window.dome = (function () {
             }
         });
     };
+
+    Dome.prototype.remove = function () {
+        return this.forEach(function (el) {
+            return el.parentNode.removeChild(el);
+        });
+    };
+
     var dome = {
         get: function (selector) {
             var els;
