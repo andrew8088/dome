@@ -141,3 +141,39 @@ describe("dome", function () {
             expect(d.attr("data-attr")).toBe("some-data");
         });
     });
+    describe("append", function () {
+        beforeEach(function () {
+            this.p = dome.create("p", { className: "one-child", text: "text" });
+            this.q = dome.create("p", { className: "one-child", text: "text" });
+        });
+        afterEach(function () {
+            dome.get(".one-child").forEach(function (el) {
+                el.parentNode.removeChild(el);
+            });
+        });
+        it("can append new elements to an existing element", function () {
+            dome.get("#one").append(this.p);
+            expect(dome.get(".one-child")[0].parentNode.id).toEqual("one");
+        });
+        it("can append new elements to multiple existing elements", function () {
+            dome.get(".two").append(dome.create("p", { className: "one-child", text: "text" }));
+            var d = dome.get(".one-child");
+            expect(d[0].parentNode.className.indexOf("two")).toBeGreaterThan(-1);
+            expect(d[1].parentNode.className.indexOf("two")).toBeGreaterThan(-1);
+            expect(d[2].parentNode.className.indexOf("two")).toBeGreaterThan(-1);
+        });
+        it("can append elements already in the DOM to an existing element", function () {
+            dome.get("#elements").append(dome.get("#one"));
+            expect(dome.get("#one")[0].parentNode.id).toBe("elements");
+        });
+        it("can append elements already in the DOM to multiple existing elements", function () {
+            dome.get("#elements").append(this.p).append(this.q); 
+            
+            var d1 = dome.get(".two"),
+                d2 = dome.get(".one-child");
+            d1.append(d2, true);
+            dome.get(".two").forEach(function (el) {
+                expect(el.childNodes.length).toBe(2);
+            });
+        });
+    });

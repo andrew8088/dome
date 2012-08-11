@@ -94,6 +94,14 @@ window.dome = (function () {
             });
         }
     };
+
+    Dome.prototype.append = function (els) {
+        return this.forEach(function (parEl, i) {
+            els.forEach(function (childEl) {
+                parEl.appendChild( (i > 0) ? childEl.cloneNode(true) : childEl);
+            });
+        });
+    };
     var dome = {
         get: function (selector) {
             var els;
