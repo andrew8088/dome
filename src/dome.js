@@ -82,6 +82,18 @@ window.dome = (function () {
             el.className = cs.join(' ');
         });
     };
+
+    Dome.prototype.attr = function (attr, val) {
+        if (typeof val !== 'undefined') {
+            return this.forEach(function(el) {
+                el.setAttribute(attr, val);
+            });
+        } else {
+            return this.mapOne(function (el) {
+                return el.getAttribute(attr);
+            });
+        }
+    };
     var dome = {
         get: function (selector) {
             var els;

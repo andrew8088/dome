@@ -110,3 +110,22 @@ describe("dome", function () {
             expect(this.d[0].className.indexOf('classes')).toBe(-1);
         });
     });
+    describe("attr", function () {
+        beforeEach(function () {
+            this.d = dome.get(".two");
+        });
+        afterEach(function () {
+            this.d.forEach(function (el) {
+                el.removeAttribute('data-something');
+            });
+        });
+        it("can set element attributes", function () {
+            this.d.attr("data-something", "some-value");
+            expect(this.d[0].getAttribute("data-something")).toEqual("some-value");
+        });
+        it("can get element attributes", function () {
+            this.d.attr("data-something", "some-value");
+            expect(this.d.attr("data-something")[0]).toEqual("some-value");
+        });
+    });
+
