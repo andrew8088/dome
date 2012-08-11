@@ -90,3 +90,23 @@ describe("dome", function () {
             expect(cn.indexOf("multiple")).toBeLessThan(cn.indexOf("classes"));
         });
     });
+    describe("removeClass", function () {
+        beforeEach(function () {
+            this.d = dome.get(".two");
+            this.d.addClass("classes");
+        });
+        afterEach(function () {
+            this.d.forEach(function (el) {
+                el.className = "two";
+            });
+        });
+        it("can remove a class from elements", function () {
+            this.d.removeClass("classes");
+            expect(this.d[0].className.indexOf('classes')).toBe(-1);
+        });
+        it("removes all instances of that class from elements", function () {
+            this.d.addClass("test classes");
+            this.d.removeClass("classes");
+            expect(this.d[0].className.indexOf('classes')).toBe(-1);
+        });
+    });
