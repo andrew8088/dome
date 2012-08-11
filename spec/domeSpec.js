@@ -225,3 +225,32 @@ describe("dome", function () {
             expect(o[0].children.length).toBe(0);
         });
     });
+
+    describe("events", function () {
+        beforeEach(function () {
+            this.d = dome.get("#one");
+            o = this.o =  {
+                f: function () { console.log("test"); }
+            };
+        });
+        it("adds events to elements", function () {
+            spyOn(this.o, 'f');
+            this.d.on('click', this.o.f);
+            $(this.d[0]).click();
+            expect(this.o.f).toHaveBeenCalled();
+        });
+        it("gets the event object as the first parameter", function () {
+            this.d.on('click', function (e) {
+                expect(e).not.toBeUndefined();
+            });
+            $(this.d[0]).click();
+        });
+        it("removes events from elements", function () {
+            spyOn(this.o, 'f');
+            this.d.on('click', this.o.f);
+            this.d.off('click', this.o.f);
+            $(this.d[0]).click();
+            expect(this.o.f).not.toHaveBeenCalled();
+        });
+    });
+});
