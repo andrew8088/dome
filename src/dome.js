@@ -34,6 +34,18 @@ window.dome = (function () {
             });
         }
     };
+
+    Dome.prototype.html = function (html) {
+        if (typeof html !== "undefined") {
+            return this.forEach(function (el) {
+                el.innerHTML = html;
+            });
+        } else {
+            return this.mapOne(function (el) {
+                return el.innerHTML;
+            });
+        }
+    };
     var dome = {
         get: function (selector) {
             var els;

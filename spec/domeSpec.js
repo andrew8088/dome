@@ -55,3 +55,19 @@ describe("dome", function () {
             this.d.text("");
         });
     });
+    describe("html", function () {
+        beforeEach(function () {
+            this.d = dome.get(".two");
+        });
+        afterEach(function () {
+            this.d.html("");
+        });
+        it("can set the html content of an element", function () {
+            this.d.html("<strong>Test!</strong>");
+            expect(this.d[0].innerHTML.toLowerCase()).toEqual("<strong>test!</strong>");
+        });
+        it("can get the html content of an element", function () {
+            this.d.html("<strong>Test!</strong>");
+            expect(this.d.html()[0].toLowerCase()).toEqual("<strong>test!</strong>");
+        });
+    });
