@@ -129,3 +129,15 @@ describe("dome", function () {
         });
     });
 
+    describe("create", function () {
+        it("can create elements", function () {
+            expect(dome.create("p")[0].tagName).toEqual("P");
+        });
+        it("can create elements with attributes", function () {
+            var d = dome.create("p", { id: "some-id", className: "some-class", text: "some-text", "data-attr": "some-data"});
+            expect(d[0].id).toBe("some-id");
+            expect(d[0].className.indexOf("some-class")).toBeGreaterThan(-1);
+            expect(d.text()).toBe("some-text");
+            expect(d.attr("data-attr")).toBe("some-data");
+        });
+    });
