@@ -102,6 +102,14 @@ window.dome = (function () {
             });
         });
     };
+
+    Dome.prototype.prepend = function (els) {
+        return this.forEach(function (parEl, i) {
+            for (var j = els.length -1; j > -1; j--) {
+                parEl.insertBefore((i > 0) ? els[j].cloneNode(true) : els[j], parEl.firstChild);
+            }
+        });
+    };
     var dome = {
         get: function (selector) {
             var els;

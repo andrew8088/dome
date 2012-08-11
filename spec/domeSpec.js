@@ -177,3 +177,41 @@ describe("dome", function () {
             });
         });
     });
+    describe("prepend", function () {
+        beforeEach(function () {
+            this.d = dome.get("#one");
+            this.s = dome.create("span", { text: 1 });
+            this.t = dome.create("span", { text: 2 });
+        });
+        afterEach(function () {
+            dome.get("span").forEach(function (el) {
+                el.parentNode.removeChild(el);
+            });
+        });
+        it("can prepend elements to an existing element", function () {
+            this.d.prepend(this.s);
+            expect(this.d[0].firstChild.tagName).toBe(this.s[0].tagName);
+        });
+        it("can prepend new elements to multiple existing elements", function () {
+            var d = dome.get(".two");
+            d.prepend(this.s);
+            expect(d[0].firstChild.tagName).toBe(this.s[0].tagName);
+            expect(d[1].firstChild.tagName).toBe(this.s[0].tagName);
+        });
+        it("can prepend elements already in the dome to existing elements", function () {
+            var d = dome.get("#elements");
+            d.prepend(this.d);
+            expect(d[0].firstChild.tagName).toBe(this.d[0].tagName);
+        });
+        it("can prepend elements already in the DOM to multiple existing elements", function () {
+            this.d.append(this.s).append(this.t);
+            var two = dome.get(".two");
+            two.prepend(dome.get("span"));
+
+            two.forEach(function (el) {
+                expect(el.childNodes.length).toBe(2); 
+            });
+
+        });
+        
+    });
