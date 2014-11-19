@@ -129,6 +129,35 @@ describe("dome", function () {
         });
     });
 
+    describe("addStyle", function () {
+        beforeEach(function () {
+            this.d = dome.get(".two");
+        });
+        afterEach(function () {
+            this.d.forEach(function (el) {
+                el.style.removeProperty('color');
+                el.style.removeProperty('padding-top');
+            });
+        });
+        it("can set inline element styles", function () {
+            this.d.addStyle({"color":"rgb(255, 0, 0)","padding-top":"5px"});
+            expect(this.d[0].style.getPropertyValue("color")).toEqual("rgb(255, 0, 0)");
+            expect(this.d[0].style.getPropertyValue("padding-top")).toEqual("5px");
+        });
+    });
+
+    describe("removeStyle", function () {
+        beforeEach(function () {
+            this.d = dome.get(".two");
+            this.d.addStyle({"color":"rgb(255, 0, 0)","padding-top":"5px"});
+        });
+        it("can remove inline element styles", function () {
+            this.d.removeStyle(['color','padding-top']);
+            expect(this.d[0].style.getPropertyValue("color")).toEqual(null);
+            expect(this.d[0].style.getPropertyValue("padding-top")).toEqual(null);
+        });
+    });
+
     describe("create", function () {
         it("can create elements", function () {
             expect(dome.create("p")[0].tagName).toEqual("P");
