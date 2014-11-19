@@ -95,6 +95,28 @@ window.dome = (function () {
         }
     };
 
+    Dome.prototype.addStyle = function (val) {
+        return this.forEach(function(el) {
+            for (var prop in val) {
+                el.style[prop] = val[prop];
+            }
+        });
+    };
+
+    Dome.prototype.removeStyle = function (val) {
+        if(typeof val !== 'string') {
+            return this.forEach(function(el) {
+                for (var i = 0; i < val.length; i++) {
+                    el.style.removeProperty(val[i]);
+                }
+            });
+        } else {
+            return this.forEach(function(el) {
+                el.style.removeProperty(val);
+            });
+        }
+    };
+
     Dome.prototype.append = function (els) {
         return this.forEach(function (parEl, i) {
             els.forEach(function (childEl) {
